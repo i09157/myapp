@@ -1,0 +1,35 @@
+ <% flash.each do |name, msg| %>
+    <div class="alert alert-info fade in">
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+      <%= flash[:notice]%>
+    </div>
+<% end %>
+
+<div class="container-fluid">
+
+  <h1>Listing articles</h1>
+  <div id="articles">
+  </div>
+ 
+  <div class="span10">
+
+    <table class="table table-bordered  table-striped table-hover">
+
+    <thead>
+     <tr><th>Title</th><th>Name</th><th>Create</th><th>Update</th></tr>
+   </thead>
+   <tbody>
+   <% @articles.each do |article| %>
+        <tr>
+            <td><%= link_to article.title, article_path(article) %></td>
+            <td><%= article.user_name %></td>
+            <td><%= simple_time(article.created_at) %></td>
+            <td><%= simple_time(article.updated_at) %></td>
+        </tr>
+   <% end %>
+   </tbody>
+   </table>
+   </div>
+</div>
+<%= link_to 'New Article', new_article_path %>
+

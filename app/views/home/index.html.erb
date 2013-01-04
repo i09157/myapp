@@ -1,0 +1,33 @@
+ <% flash.each do |name, msg| %>
+    <div class="alert alert-info fade in">
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+      <%= flash[:notice]%>
+    </div>
+<% end %>
+
+<h1>Home</h1>
+
+<body>
+
+<%= link_to 'New Article', new_article_path %>
+
+<div id="tabs" class ="span10"> 
+  <ul>
+    <li><a href="#menu1">記事</a></li>
+    <li><a href="#menu2">質問</a></li>
+    <li><a href="#menu3">タグ</a></li>
+  </ul>
+  
+    <div id="menu1"><%= render :partial => "article_list"  %></div>
+    <div id="menu2">menu2</div>
+    <div id="menu3">menu 3</div>
+</div>
+
+<script>
+$(function() {
+    $('#tabs').tabs();
+});
+</script>
+
+</body>
+

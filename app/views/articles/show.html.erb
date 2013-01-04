@@ -1,0 +1,72 @@
+<%= link_to 'Edit', edit_article_path(@article) %> |
+<%= link_to 'Destroy', @article, confirm: 'Are you sure?', method: :delete %> |
+<%= link_to 'Back', articles_path %> 
+
+<% flash.each do |name, msg| %>
+    <div class="alert alert-success fade in">
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+      <%= flash[:notice]%>
+    </div>
+<% end %>
+
+<div class ="container">
+  <div class="page-header">
+    <h1><b>Title:</b><%= @article.title %></h1>
+    <% @article.tags.each do |tag| %>
+　　  <%#= link_to tag.name, tag_path(tag.name) %>
+      <p><span class="label"><%= tag.name %></span></p>
+    <% end %>
+    <%= image_tag 'icon-comment.png'%>
+    (<%= @article.comments.size %>)
+  </div>　
+
+  <div class ="row">
+    <div class ="span9">	
+ 		  <p><%= simple_format @article.content %></p>
+ 		  <br /><hr />
+   	</div>
+
+  	<div class="span3">
+      <div class="well sidebar-nav">
+        <%= image_tag(@article.user_image)   %>
+        <h3>投稿者：<%= @article.user_name%></h3>
+        <ul class="nav nav-list">
+          <li class="nav-header">Sidebar</li>
+          <li><%= link_to "Link1", "/path1"  %></li>
+          <li><%= link_to "Link2", "/path2"  %></li>
+          <li><%= link_to "Link3", "/path3"  %></li>
+        </ul>
+      </div><!--/.well -->
+  	</div><!--/span-->
+  </div>
+
+  <h3>この記事の情報は正しいですか・使えますか？</h3>
+  <button>YES</button>
+  <button>NO</button>
+  <hr />
+
+  <legend><h3>Comments</h3></legend>
+  <ul>
+    <% if @article.comments.any? %>
+      <% @article.comments.each do |comment| %>
+        <%= image_tag(comment.user_image, {:size => '30x20'}) %>
+	      <%= comment.user_name %>
+	      <% if comment.user_id == current_user.id %>
+	      <%= link_to 'Delete',[comment.article, comment],:confirm => 'Are you sure?',
+	                                 									    :method => :delete,
+			       							                        			:class => "btn btn-mini"
+                   	                            	  	   %> 
+        <% end %>
+	      <%= simple_format comment.body %>
+	      <br /><hr />
+      <% end %>
+	  <% else %>
+	    <li>no comment yet.</li>
+	  <% end %>
+  </ul>
+
+  <div class ="well span7">
+    <legend>Add a comment</legend>
+    <%= render 'comments/form' %>
+  </div>
+</div><!--container  -->
