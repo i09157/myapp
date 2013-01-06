@@ -8,6 +8,13 @@
 <div class="container-fluid">
 
   <h1>Listing articles</h1>
+  
+  <%= link_to '全て表示', [:articles] %>
+  <% tag_cloud(@tags, %w(css1 css2 css3 css4)) do |tag, css_class| %>
+    <%= link_to tag.name, { :action => :tag, :name => tag.name }, :class => css_class, 
+                                                                  :class => "label label-info " %>
+  <% end %>
+
   <div id="articles">
   </div>
  

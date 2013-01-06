@@ -12,10 +12,11 @@
 <div class ="container">
   <div class="page-header">
     <h1><b>Title:</b><%= @article.title %></h1>
-    <% @article.tags.each do |tag| %>
-　　  <%#= link_to tag.name, tag_path(tag.name) %>
-      <p><span class="label"><%= tag.name %></span></p>
-    <% end %>
+    <ul>
+      <% @article.tags.each do |tag| %>
+        <li><%= link_to tag.name, { :action => :tag, :name => tag.name }, :class => "label label-info" %></li>
+      <% end %>
+    </ul>
     <%= image_tag 'icon-comment.png'%>
     (<%= @article.comments.size %>)
   </div>　

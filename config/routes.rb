@@ -5,8 +5,11 @@ Myapp::Application.routes.draw do
 
   resources :articles do
    resources :comments
+   collection do
+      get 'tag' # => tagを追加
+    end
   end
-  
+
  
   get "home/index"
 

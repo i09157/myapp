@@ -2,10 +2,12 @@ class ArticlesController < ApplicationController
   # GET /articles
   # GET /articles.json
   before_filter :authenticate, :only => [:delete,:new,:show]
+
+
   def index
     #@articles = Article.all
     @articles = Article.order('created_at desc')
-
+    @tags = Article.tag_counts_on(:tags)
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @articles }
@@ -22,6 +24,12 @@ class ArticlesController < ApplicationController
       format.html # show.html.erb
       format.json { render json: @article }
     end
+  end
+
+  def tag
+    @articles = Article.tagged_with(params[:name])
+    @tags = Article.tag_counts_on(:tags)
+    render 'index'
   end
 
   # GET /articles/new
@@ -91,5 +99,7 @@ class ArticlesController < ApplicationController
       render :status => :forbidden, :text => " 403 # Forbidden"
     end
   end
+
+ 
 
 end
