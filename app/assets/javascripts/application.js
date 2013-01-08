@@ -14,5 +14,6 @@
 //= require jquery_ujs
 //= require jquery.ui.all
 //= require twitter/bootstrap
-
+//= require showdown
 //= require_tree .
+

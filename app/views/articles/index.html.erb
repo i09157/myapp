@@ -8,6 +8,17 @@
 <div class="container-fluid">
 
   <h1>Listing articles</h1>
+
+  <%#= form_for @search_form, :url => articles_path, :html => {:method => :get} do |f| %>
+    <%#= f.search_field :q %>
+    <%#= f.submit '検索' %>
+  <%# end %>
+
+  <%= form_for @search_form, :url => articles_path, :html => {:method => :get, :class => "form-search", 
+                                                                :action => "search",  :role => "search"} do |f| %>
+    <%= f.search_field :q,:placeholder => "Title/Content ",:class => "input-medium search-query",:type => "text" %>
+    <%= f.submit '検索' ,:class => "btn",:alt => "検索" %>
+  <% end %>
   
   <%= link_to '全て表示', [:articles] %>
   <% tag_cloud(@tags, %w(css1 css2 css3 css4)) do |tag, css_class| %>

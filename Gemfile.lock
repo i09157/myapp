@@ -30,6 +30,8 @@ GEM
       multi_json (~> 1.0)
     acts-as-taggable-on (2.3.3)
       rails (~> 3.0)
+    albino (1.3.3)
+      posix-spawn (>= 0.3.6)
     arel (3.0.2)
     builder (3.0.4)
     coffee-rails (3.2.2)
@@ -92,6 +94,7 @@ GEM
       oauth2 (~> 0.8.0)
       omniauth (~> 1.0)
     polyglot (0.3.3)
+    posix-spawn (0.3.6)
     rack (1.4.1)
     rack-cache (1.2)
       rack (>= 0.4)
@@ -150,6 +153,7 @@ PLATFORMS
 
 DEPENDENCIES
   acts-as-taggable-on
+  albino
   coffee-rails (~> 3.2.1)
   foreigner
   jquery-rails
@@ -159,7 +163,7 @@ DEPENDENCIES
   omniauth
   omniauth-github
   rails (= 3.2.3)
-  redcarpet (~> 1.17.2)
+  redcarpet (= 1.17.2)
   sass-rails (~> 3.2.5)
   sqlite3
   therubyracer

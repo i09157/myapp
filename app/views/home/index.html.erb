@@ -11,23 +11,23 @@
 
 <%= link_to 'New Article', new_article_path, :class => "btn"  %>
 <hr  />
-<div id="tabs" class ="span10"> 
-  <ul>
-    <li><a href="#menu1">記事</a></li>
-    <li><a href="#menu2">質問</a></li>
-    <li><a href="#menu3">タグ</a></li>
-  </ul>
-  
-    <div id="menu1"><%= render :partial => "article_list"  %></div>
-    <div id="menu2">menu2</div>
-    <div id="menu3">menu 3</div>
-</div>
+<div class="extensions-panel span7">
 
-<script>
-$(function() {
-    $('#tabs').tabs();
-});
-</script>
+<div class="tabbable"> <!-- Only required for left/right tabs -->
+  <ul class="nav nav-tabs">
+    <li class="active"><a href="#tab1" data-toggle="tab">Section 1</a></li>
+    <li><a href="#tab2" data-toggle="tab">Section 2</a></li>
+  </ul>
+  <div class="tab-content">
+    <div class="tab-pane active" id="tab1">
+      <%= render :partial => "article_list" %>
+    </div>
+    <div class="tab-pane" id="tab2">
+      <p>Howdy, I'm in Section 2.</p>
+    </div>
+  </div>
+</div>
+</div>
 
 </body>
 

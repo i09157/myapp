@@ -3,10 +3,18 @@ class ArticlesController < ApplicationController
   # GET /articles.json
   before_filter :authenticate, :only => [:delete,:new,:show]
 
+  def search
+
+  end
 
   def index
-    #@articles = Article.all
-    @articles = Article.order('created_at desc')
+ #   @articles = Article.order('created_at desc')
+    @search_form = SearchForm.new params[:search_form]
+    @articles =    Article.scoped
+    if @search_form.q.present?
+      @articles = @articles.title_or_content_matches @search_form.q
+    end
+
     @tags = Article.tag_counts_on(:tags)
     respond_to do |format|
       format.html # index.html.erb
@@ -28,6 +36,7 @@ class ArticlesController < ApplicationController
 
   def tag
     @articles = Article.tagged_with(params[:name])
+    @search_form = SearchForm.new params[:search_form]
     @tags = Article.tag_counts_on(:tags)
     render 'index'
   end

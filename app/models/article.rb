@@ -7,6 +7,9 @@ class Article < ActiveRecord::Base
   validates :content, :presence => true,
                       :length => { :minimum => 5 }
   belongs_to :user
+  scope :title_or_content_matches, lambda{|q|
+    where 'title like :q or content like :q', :q => "%#{q}%"
+  }
   ActionView::Base.field_error_proc = Proc.new do |html_tag, instance|
     html = %(<div class="field_with_errors">#{html_tag}</div>).html_safe
     # add nokogiri gem to Gemfile
