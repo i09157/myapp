@@ -9,8 +9,11 @@ class UsersController < ApplicationController
 
 	def show 
 		@user = User.find(params[:id])
+<<<<<<< HEAD
 #        @article = Article.find(params[:id])
         # @article = Article.find(params[:id]).articles.build
 
+=======
+>>>>>>> origin/master
 	end 
 end
