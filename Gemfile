@@ -22,6 +22,7 @@ gem 'jquery-ui-rails'
 
 gem "omniauth"
 gem 'omniauth-github'
+gem 'draper'  
 
 gem 'foreigner'
 

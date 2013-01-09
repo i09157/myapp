@@ -1,0 +1,19 @@
+<div class ="container">
+  <h1>User name</h1>
+  <div class="row">
+    <div class="well sidebar-nav span3">
+      <%= image_tag(@user.image, {:size => '100x60'}) %>
+      <h3><%= @user.name %></h3>
+    </div>
+
+    <div class="span9">
+  	   <% @users.each do |user| %>
+        <tr>
+            <td><%= user.article_title %></td>
+        </tr>
+       <% end %>
+    </div>
+  </div>
+
+
+</div>

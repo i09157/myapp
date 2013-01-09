@@ -23,15 +23,14 @@
 
   <div class ="row">
     <div class ="span9">	
- 		  <p><%#= simple_format @article.content %></p>
-      <%= markdown @article.content %>
+ 		  <p><%= markdown @article.content %></p>
  		  <br /><hr />
    	</div>
 
   	<div class="span3">
       <div class="well sidebar-nav">
         <%= image_tag(@article.user_image)   %>
-        <h3>投稿者：<%= @article.user_name%></h3>
+        <h3>投稿者：<%= link_to @article.user_name, user_path(@article.user_id) %></h3>
         <ul class="nav nav-list">
           <li class="nav-header">Sidebar</li>
           <li><%= link_to "Link1", "/path1"  %></li>
@@ -51,23 +50,28 @@
   <ul>
     <% if @article.comments.any? %>
       <% @article.comments.each do |comment| %>
+        <div class="span6">
+
         <%= image_tag(comment.user_image, {:size => '30x20'}) %>
-	      <%= comment.user_name %>
+	      <%= link_to comment.user_name , user_path(comment.user_id) %>
 	      <% if comment.user_id == current_user.id %>
 	      <%= link_to 'Delete',[comment.article, comment],:confirm => 'Are you sure?',
 	                                 									    :method => :delete,
 			       							                        			:class => "btn btn-mini"
                    	                            	  	   %> 
         <% end %>
-	      <%= simple_format comment.body %>
+	      <%= markdown  comment.body %>
 	      <br /><hr />
+      </div>
+
       <% end %>
 	  <% else %>
+    
 	    <li>no comment yet.</li>
 	  <% end %>
   </ul>
 
-  <div class ="well span7">
+  <div class ="comment_form_wrapper span7">
     <legend>Add a comment</legend>
     <%= render 'comments/form' %>
   </div>
