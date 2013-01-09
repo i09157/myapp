@@ -17,16 +17,21 @@
 
 <% content_for :sidebar do %>
   <div id="datepicker"></div>
-  <input type="hidden" id="selectedValue" />
   <script>
     $(function() {
-      $("#datepicker").datepicker({
-        onSelect: function(dateText, inst) { $("#selectedValue").val(dateText); }
+      $('#datepicker').datepicker( {
+        onSelect: function(date) {
+                 alert(date);
+        },
+        selectWeek: true,
+        inline: true,
+        startDate: '01/01/2000',
+        firstDay: 1
       });
     });
   </script>
-<% end %>
 
+<% end %>
 
 
 
