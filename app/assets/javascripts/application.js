@@ -16,4 +16,3 @@
 //= require twitter/bootstrap
 //= require showdown
 //= require_tree .
-

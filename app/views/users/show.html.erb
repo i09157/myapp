@@ -1,0 +1,25 @@
+<div class ="container">
+  <h1>User name</h1>
+  <div class="row">
+    <div class="well sidebar-nav span3">
+      <%= image_tag(@user.image, {:size => '100x60'}) %>
+      <h3><%= @user.name %></h3>
+    </div>
+
+    <div class="span9">
+      <table class="table table-bordered  table-striped table-hover">
+      <thead>
+       <tr><th>Title</th></tr>
+      </thead>
+      <tbody> 
+      <% @user.articles.each do |article| %>
+        <tr>
+            <td><%= link_to article.title, article_path(article) %></td>
+        </tr>
+      <% end %>
+      </tbody>
+      </table>
+
+    </div>
+  </div>
+</div>

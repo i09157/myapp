@@ -3,10 +3,6 @@ class ArticlesController < ApplicationController
   # GET /articles.json
   before_filter :authenticate, :only => [:delete,:new,:show]
 
-  def search
-
-  end
-
   def index
  #   @articles = Article.order('created_at desc')
     @search_form = SearchForm.new params[:search_form]
