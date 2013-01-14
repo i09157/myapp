@@ -10,23 +10,27 @@
  *
  *= require_self
  *= require_tree .
- *= require jquery.ui.all
+ *= require jquery-ui-1.9.2.custom
  
 */
+
 head{
-  	padding-top: 40px;
+  	padding-top: 50px;
 	margin:0 auto;
 
 }
 body{
   		padding-top: 20px;
      	background-color: #FFF;
+  background: #123;
+
 
 }
 .container{
-  	padding-top: 20px;
+  	padding-top: 25px;
 	margin:0 auto;
 	width:520px;
+
 }
 .row {
   	padding-top: 15px;
@@ -35,7 +39,6 @@ body{
 
 .article h2 a {
 	color: #00ADEC;
-	text-decoration: none;
 }
 .article h2 a:hover{
 	color: #00ADEC;

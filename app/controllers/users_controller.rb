@@ -1,3 +1,4 @@
+#encoding: utf-8
 class UsersController < ApplicationController
 	def index
 		@users = User.all
@@ -9,11 +10,15 @@ class UsersController < ApplicationController
 
 	def show 
 		@user = User.find(params[:id])
-<<<<<<< HEAD
-#        @article = Article.find(params[:id])
-        # @article = Article.find(params[:id]).articles.build
-
-=======
->>>>>>> origin/master
 	end 
+	def follow	
+	   @user = User.find(params[:id])
+       current_user.follow(@user)
+       render :show
+    end 
+    def unfollow	
+	   @user = User.find(params[:id])
+       current_user.stop_following(@user)
+    end 
+
 end

@@ -1,6 +1,9 @@
 class User < ActiveRecord::Base
   attr_accessible :name, :provider, :uid
+  acts_as_followable
+  acts_as_follower 
   has_many :articles
+  has_many :questions
   has_many :comments
   def self.create_with_omniauth(auth)
     create!do |user|

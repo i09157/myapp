@@ -1,6 +1,12 @@
 <% content_for :head do %>
   <div class="container">
-    <h1>Listing articles</h1>
+    <ul class="breadcrumb">
+    <li><a href="/home/index">Home</a> <span class="divider">/</span></li>
+    <li><a href="/welcome/index">マイページ</a> <span class="divider">/</span></li>
+    <li class="active">記事一覧</li>
+    </ul>
+
+    <h1>記事の一覧</h1>
       <%= form_for @search_form, :url => articles_path, :html => {:method => :get, :class => "form-search", 
                                                                 :action => "search",  :role => "search"} do |f| %>
         <%= f.search_field :q,:placeholder => "Title/Content ",:class => "input-medium search-query",:type => "text" %>
@@ -11,30 +17,8 @@
     <%= link_to tag.name, { :action => :tag, :name => tag.name }, :class => css_class, 
                                                                   :class => "label label-info " %>
     <% end %>
-
   </div>
 <% end %>
-
-<% content_for :sidebar do %>
-  <div id="datepicker"></div>
-  <script>
-    $(function() {
-      $('#datepicker').datepicker( {
-        onSelect: function(date) {
-                 alert(date);
-        },
-        maxDate: '+d',
-        showButtonPanel: true,
-//        showMonthAfterYear: true,
-        changeMonth: true,
-        changeYear: true
-      });
-    });
-  </script>
-
-<% end %>
-
-
 
 <% flash.each do |name, msg| %>
     <div class="alert alert-info fade in">
@@ -42,14 +26,14 @@
       <%= flash[:notice]%>
     </div>
 <% end %>
-
 <div class="container-fluid">
-    
+    <p><%= @articles.total_count %>件中<%= @articles.offset_value + 1 %>
+〜<%= @articles.offset_value + @articles.length %>件を表示しています。</p>
       <table class="table table-bordered  table-striped table-hover">
-      <thead>
-        <tr><th>Title</th><th>Name</th><th>Create</th><th>Update</th></tr>
-      </thead>
-      <tbody>
+        <thead>
+          <tr><th>Title</th><th>Name</th><th>Create</th><th>Update</th></tr>
+        </thead>
+        <tbody>
         <% @articles.each do |article| %>
           <tr>
             <td><%= link_to article.title, article_path(article) %></td>
@@ -58,8 +42,28 @@
             <td><%= simple_time(article.updated_at) %></td>
           </tr>
         <% end %>
-      </tbody>
+        </tbody>
       </table>
-    </div>
-<%= link_to 'New Article', new_article_path %>
+        <%= paginate @articles  %>
+      
+</div>
 
+<% content_for :sidebar do %>
+  <h4>アーカイブ</h4>
+  <div id="datepicker"></div>
+  <script>
+    $(function() {
+      $('#datepicker').datepicker( {
+        dateFormat: "yy/mm/dd",
+        onSelect: function(date) {
+           window.location = "/archives/" + date;
+        },
+        maxDate: '+d',
+        showButtonPanel: true,
+        changeMonth: true,
+        changeYear: true
+      });
+    });
+  </script>
+
+<% end %>

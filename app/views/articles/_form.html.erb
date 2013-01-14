@@ -10,7 +10,7 @@
   <% end %>
 
   <div class="control-group">
-    <%= f.label :title, :class => 'control-label' %>
+    <%= f.label "タイトル", :class => 'control-label' %>
     <div class="controls">
       <%= f.text_field :title, :class => 'text_field' %>
     </div>
@@ -18,20 +18,19 @@
 
   <div class="control-group">
 
-    <div class="tabbable tabs-right">
+    <div class="tabbable">
       <ul class="nav nav-tabs">
         <li class="active"><a href="#tab1" data-toggle="tab">編集</a></li>
         <li><a href="#tab2" data-toggle="tab" class="markdown-build-preview">プレビュー</a></li>
       </ul>
       <div class="tab-content">
         <div class="tab-pane active" id="tab1">
-          <%= f.label :content, :class => 'control-label' %>
+          <%= f.label "本文", :class => 'control-label' %>
           <div class="controls">
             <%= f.text_area :content,:class => "input-xxlarge markdown-source", :rows => "20"  %>
           </div>
         </div>
         <div class="tab-pane" id="tab2">
-          <h4>Markdown Preview(β)</h4>
           <hr>
           <div class="markdown-preview-wrapper"></div>
           <hr>
@@ -40,17 +39,19 @@
     </div>
   </div>
 
-  <div class="control-group">
-  <%= f.label 'タグ：複数付ける場合は、半角で,を使用してください ' %>
-   <div class="controls">
-    <%= f.text_field :tag_list %>
+  <div class="control-group">
+    <%= f.label 'タグ：複数付ける場合は、半角で , を使用してください ' %>
+    <div class="controls">
+     <%= f.text_field :tag_list %>
+    </div>
   </div>
-</div>
+  
 
   <div class="form-actions">
-    <%= f.submit nil, :class => 'btn btn-primary' %>
     <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
                 articles_path, :class => 'btn' %>
+    <%= f.submit '投稿する', :class => 'btn btn-primary' %>
+
   </div>
 
 <% end %>

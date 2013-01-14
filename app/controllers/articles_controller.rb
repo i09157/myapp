@@ -1,3 +1,4 @@
+#encoding:utf-8
 class ArticlesController < ApplicationController
   # GET /articles
   # GET /articles.json
@@ -6,7 +7,7 @@ class ArticlesController < ApplicationController
   def index
  #   @articles = Article.order('created_at desc')
     @search_form = SearchForm.new params[:search_form]
-    @articles =    Article.scoped
+    @articles =    Article.scoped.page(params[:page]).per(5)
     if @search_form.q.present?
       @articles = @articles.title_or_content_matches @search_form.q
     end
@@ -22,6 +23,7 @@ class ArticlesController < ApplicationController
   # GET /articles/1.json
   def show
     @article = Article.find(params[:id])
+   
     @comment = Article.find(params[:id]).comments.build
 
     respond_to do |format|
@@ -31,7 +33,7 @@ class ArticlesController < ApplicationController
   end
 
   def tag
-    @articles = Article.tagged_with(params[:name])
+    @articles = Article.tagged_with(params[:name]).page(params[:page]).per(5)
     @search_form = SearchForm.new params[:search_form]
     @tags = Article.tag_counts_on(:tags)
     render 'index'
@@ -63,7 +65,7 @@ class ArticlesController < ApplicationController
     
     respond_to do |format|
       if @article.save
-        format.html { redirect_to @article, notice: 'Article was successfully created.' }
+        format.html { redirect_to @article, notice: '記事が作成されました' }
         format.json { render json: @article, status: :created, location: @article }
       else
         format.html { render action: "new" }
@@ -81,7 +83,7 @@ class ArticlesController < ApplicationController
       @article = Article.find(params[:id])
       respond_to do |format|
         if @article.update_attributes(params[:article])
-          format.html { redirect_to @article, notice: 'Article was successfully updated.' }
+          format.html { redirect_to @article, notice: '記事が更新されました' }
           format.json { head :no_content }
         else
           format.html { render action: "edit" }
@@ -97,7 +99,7 @@ class ArticlesController < ApplicationController
     if @article.user_id == current_user.id
       @article.destroy 
       respond_to do |format|
-        format.html { redirect_to articles_url, notice: 'Article was successfully deleated.'}
+        format.html { redirect_to articles_url, notice: '記事が削除されました'}
         format.json { head :no_content }
       end
     else

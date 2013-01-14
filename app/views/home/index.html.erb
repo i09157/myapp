@@ -1,3 +1,37 @@
+<% content_for :head do %>
+  <div class="container">
+    <h1>Home</h1>
+  </div>
+  <hr  />
+<% end %>
+<% content_for :sidebar do %>
+  <h4>アーカイブ</h4>
+  <div id="datepicker"></div>
+  <script>
+    $(function() {
+      $('#datepicker').datepicker( {
+        dateFormat: "yy/mm/dd",
+        onSelect: function(date) {
+           window.location = "/archives/" + date;
+        },
+        maxDate: '+d',
+        showButtonPanel: true,
+        changeMonth: true,
+        changeYear: true
+      });
+    });
+  </script>
+  
+  <h4>最新記事</h4>
+   <% @news.each do |article| %>
+    <li>
+      <%= link_to article.title, article_path(article) %>
+      <%= simple_time(article.created_at) %>
+    </li>
+　 <% end %>
+
+<% end %>
+
  <% flash.each do |name, msg| %>
     <div class="alert alert-info fade in">
       <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -5,28 +39,21 @@
     </div>
 <% end %>
 
-<h1>Home</h1>
 
 <body>
 
-<%= link_to 'New Article', new_article_path, :class => "btn"  %>
-<hr  />
-<div class="extensions-panel span7">
-
 <div class="tabbable"> <!-- Only required for left/right tabs -->
   <ul class="nav nav-tabs">
-    <li class="active"><a href="#tab1" data-toggle="tab">Section 1</a></li>
-    <li><a href="#tab2" data-toggle="tab">Section 2</a></li>
+    <li class="active"><a href="#tab1" data-toggle="tab">記事</a></li>
+    <li><a href="#tab2" data-toggle="tab">タグ</a></li>
   </ul>
   <div class="tab-content">
     <div class="tab-pane active" id="tab1">
       <%= render :partial => "article_list" %>
     </div>
     <div class="tab-pane" id="tab2">
-      <p>Howdy, I'm in Section 2.</p>
     </div>
   </div>
-</div>
 </div>
 
 </body>

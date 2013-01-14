@@ -4,6 +4,7 @@ class Article < ActiveRecord::Base
   acts_as_taggable
   has_many :comments, :dependent => :destroy
   validates :title, :presence => true
+  validates :tag_list, :presence => true
   validates :content, :presence => true,
                       :length => { :minimum => 5 }
   belongs_to :user

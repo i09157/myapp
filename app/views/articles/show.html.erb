@@ -1,6 +1,24 @@
-<%= link_to 'Edit', edit_article_path(@article) %> |
-<%= link_to 'Destroy', @article, confirm: 'Are you sure?', method: :delete %> |
-<%= link_to 'Back', articles_path %> 
+<% content_for :head do %>
+  <div class="container">
+    <p>
+    <%= link_to 'Edit', edit_article_path(@article) %> |
+    <%= link_to 'Destroy', @article, confirm: 'Are you sure?', method: :delete %>
+    </p>
+    
+    <ul class="breadcrumb">
+    <li><a href="/home/index">Home</a> <span class="divider">/</span></li>
+    <li><a href="/welcome/index">マイページ</a> <span class="divider">/</span></li>
+    <li><%= link_to "記事一覧", articles_path %><span class="divider">/</span></li>
+    <li class="active"><%= @article.title %></li>
+    </ul>
+    <h1><%= @article.title %></h1>
+    <p>投稿日: <%= simple_time(@article.created_at) %></p>
+    <%= image_tag 'icon-comment.png'%>
+    (<%= @article.comments.size %>)
+  </div>
+<% end %>
+
+
 
 <% flash.each do |name, msg| %>
     <div class="alert alert-success fade in">
@@ -8,50 +26,15 @@
       <%= flash[:notice]%>
     </div>
 <% end %>
-
-<div class ="container">
-  <div class="page-header">
-    <h1><%= @article.title %></h1>
-    <ul>
-      <% @article.tags.each do |tag| %>
-        <li><%= link_to tag.name, { :action => :tag, :name => tag.name }, :class => "label label-info" %></li>
-      <% end %>
-    </ul>
-    <%= image_tag 'icon-comment.png'%>
-    (<%= @article.comments.size %>)
-  </div>　
-
-  <div class ="row">
-    <div class ="span9">	
- 		  <p><%= markdown @article.content %></p>
- 		  <br /><hr />
-   	</div>
-
-  	<div class="span3">
-      <div class="well sidebar-nav">
-        <%= image_tag(@article.user_image)   %>
-        <h3>投稿者：<%= link_to @article.user_name, user_path(@article.user_id) %></h3>
-        <ul class="nav nav-list">
-          <li class="nav-header">Sidebar</li>
-          <li><%= link_to "Link1", "/path1"  %></li>
-          <li><%= link_to "Link2", "/path2"  %></li>
-          <li><%= link_to "Link3", "/path3"  %></li>
-        </ul>
-      </div><!--/.well -->
-  	</div><!--/span-->
-  </div>
-
+  <p><%= markdown @article.content %></p>
+  <br /><hr />
   <h3>この記事の情報は正しいですか・使えますか？</h3>
   <button>YES</button>
-  <button>NO</button>
   <hr />
-
-  <legend><h3>Comments</h3></legend>
-  <ul>
+  <legend><h3>コメント</h3></legend>
     <% if @article.comments.any? %>
+      <ul>
       <% @article.comments.each do |comment| %>
-        <div class="span6">
-
         <%= image_tag(comment.user_image, {:size => '30x20'}) %>
 	      <%= link_to comment.user_name , user_path(comment.user_id) %>
 	      <% if comment.user_id == current_user.id %>
@@ -60,19 +43,34 @@
 			       							                        			:class => "btn btn-mini"
                    	                            	  	   %> 
         <% end %>
-	      <%= markdown  comment.body %>
+	      <%= markdown comment.body %>
 	      <br /><hr />
-      </div>
-
       <% end %>
+        </ul>
 	  <% else %>
-    
-	    <li>no comment yet.</li>
+	    <li>まだコメントがありません。</li>
 	  <% end %>
-  </ul>
-
-  <div class ="comment_form_wrapper span7">
     <legend>Add a comment</legend>
     <%= render 'comments/form' %>
+
+<% content_for :sidebar do %>
+   <ul>
+      <% @article.tags.each do |tag| %>
+      <li><%= link_to tag.name, { :action => :tag, :name => tag.name }, :class => "label label-info" %></li>
+      <% end %>
+    </ul>
+  <div class="well sidebar-nav">
+    <%= image_tag(@article.user_image)   %>
+    <h3>投稿者：<%= link_to @article.user_name, user_path(@article.user_id) %></h3>
+    <ul class="nav nav-list">
+      <li class="nav-header">Sidebar</li>
+      <li><%= link_to "Link1", "/path1"  %></li>
+      <li><%= link_to "Link2", "/path2"  %></li>
+          <li><%= link_to "Link3", "/path3"  %></li>
+    </ul>
   </div>
-</div><!--container  -->
+  <h4>関連する記事</h4>
+  <% @article.find_related_tags.each do |article| %>
+    <li><%= link_to article.title, article_path(article) %></li>
+  <% end %>
+<% end %>

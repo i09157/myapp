@@ -1,0 +1,21 @@
+<div class="archives">
+	<h2>Blogcast Archive</h2>
+
+	<% @article_months.sort.reverse.each do |month, articles| %>
+	<h3><%= month.strftime("%B %Y") %></h3>
+	<ul>
+		<% for article in articles %>
+		<li>
+			<%= link_to article.title, article_path(article) %>
+			
+			<% if current_user %>
+			<% if articles.count > 0 %>
+			<span class="comments">(<%= article.comments.count %>)</span>
+			<span class="latest"><%= article.created_at.strftime("%m %d %Y") %></span>
+			<% end %>
+			<% end %>
+		</li>
+		<% end %>
+	</ul>
+	<% end %>
+</div
