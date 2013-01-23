@@ -1,16 +1,24 @@
 <% content_for :head do %>
   <div class="container">
-    <p>
-    <%= link_to 'Edit', edit_article_path(@article) %> |
-    <%= link_to 'Destroy', @article, confirm: 'Are you sure?', method: :delete %>
-    </p>
-    
     <ul class="breadcrumb">
     <li><a href="/home/index">Home</a> <span class="divider">/</span></li>
     <li><a href="/welcome/index">マイページ</a> <span class="divider">/</span></li>
     <li><%= link_to "記事一覧", articles_path %><span class="divider">/</span></li>
     <li class="active"><%= @article.title %></li>
     </ul>
+    <% if current_user == @article.user %>
+      <p>
+      <%= link_to 'Edit', edit_article_path(@article) %> |
+      <%= link_to 'Destroy', @article, confirm: 'Are you sure?', method: :delete %>
+      </p>
+    <% end %>
+    
+    <% flash.each do |name, msg| %>
+    <div class="alert alert-success fade in">
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+      <%= flash[:notice]%>
+    </div>
+    <% end %>
     <h1><%= @article.title %></h1>
     <p>投稿日: <%= simple_time(@article.created_at) %></p>
     <%= image_tag 'icon-comment.png'%>
@@ -19,13 +27,7 @@
 <% end %>
 
 
-
-<% flash.each do |name, msg| %>
-    <div class="alert alert-success fade in">
-      <button type="button" class="close" data-dismiss="alert">&times;</button>
-      <%= flash[:notice]%>
-    </div>
-<% end %>
+  <hr/>
   <p><%= markdown @article.content %></p>
   <br /><hr />
   <h3>この記事の情報は正しいですか・使えますか？</h3>
@@ -37,10 +39,11 @@
       <% @article.comments.each do |comment| %>
         <%= image_tag(comment.user_image, {:size => '30x20'}) %>
 	      <%= link_to comment.user_name , user_path(comment.user_id) %>
+        <%= simple_time(@article.created_at) %>
 	      <% if comment.user_id == current_user.id %>
 	      <%= link_to 'Delete',[comment.article, comment],:confirm => 'Are you sure?',
 	                                 									    :method => :delete,
-			       							                        			:class => "btn btn-mini"
+			       							                        			:class => "ui-icon ui-icon-trash"
                    	                            	  	   %> 
         <% end %>
 	      <%= markdown comment.body %>

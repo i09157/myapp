@@ -2,20 +2,42 @@
     <li><a href="/home/index">Home</a> <span class="divider">/</span></li>
     <li class="active">マイページ</li>
     </ul>
-<h1>Welcome#index</h1>
+<h1>マイページ</h1>
 <br />
 <li><%= link_to 'Archives', archives_path %></li> 
-<li><%= link_to 'Article List', articles_path %></li> 
 <div class ="container">
 	  <div class="row">
-        <div class="span9">
-            <%= yield %>
+      <div class="span9">
+        <div class="tabbable"> <!-- Only required for left/right tabs -->
+          <ul class="nav nav-tabs">
+          <li class="active"><a href="#tab1" data-toggle="tab">投稿した記事</a></li>
+          <li><a href="#tab2" data-toggle="tab">お気に入り</a></li>
+          </ul>
+          <div class="tab-content">
+            <div class="tab-pane active" id="tab1">
+            <table class="table table-bordered  table-striped table-hover">
+              <thead>
+              <tr><th>Articles</th></tr>
+              </thead>
+              <tbody> 
+              <% current_user.articles.each do |article| %>
+              <tr>
+                <td><%= link_to article.title, article_path(article) %></td>
+              </tr>
+              <% end %>
+              </tbody>
+            </table>
+            </div>
+            <div class="tab-pane" id="tab2">
+            </div>
+          </div>
         </div>
+      </div>
      	<div class="span3">
           <div class="well sidebar-nav">
             <%= image_tag current_user.image %>
             <li>follower:<%= current_user.followers_count %></li>
-      <li>follow:<%= current_user.follow_count %></li>     
+            <li>follow:<%= current_user.follow_count %></li>     
             <h3><%= current_user.name %></h3>
             <ul class="nav nav-list">
               <li class="nav-header">Sidebar</li>
@@ -24,7 +46,7 @@
               <li><%= link_to "Link3", "/path3"  %></li>
             </ul>
           </div><!--/.well -->
-        </div><!--/span-->
+      </div><!--/span-->
       
      </div>
 </div>

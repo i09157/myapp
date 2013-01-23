@@ -17,6 +17,7 @@
     <%= yield :head %>
   </head>
   <body>
+
 <div class="navbar navbar-inverse navbar-fixed-top">
       <div class="navbar-inner">
         <div class="container-fluid">
@@ -25,7 +26,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </a>
-          <a class="brand" href="/home/index">Project name</a>
+          <a class="brand" href="/home/index">Project</a>
           <div class="nav-collapse collapse">
             <p class="navbar-text pull-right">
               <%= link_to '記事を作成', new_article_path %>
@@ -38,8 +39,8 @@
               <% end %>
             </p>
             <ul class="nav">
-              <li><a href="/welcome/index"><i class="ui-icon-home"></i>MYHOME</a></li>
-              <li><a href="#contact">Contact</a></li>
+              <li><a href="/welcome/index" ><span class="icon"><%= image_tag 'icon-home.png'%></span>マイページ</a></li>
+              <li><a href="#contact">ランキング</a></li>
             </ul>
           </div><!--/.nav-collapse -->
         </div>
@@ -67,3 +68,4 @@
     
   </body>
 </html>
+

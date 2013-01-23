@@ -45,15 +45,13 @@
      <%= f.text_field :tag_list %>
     </div>
   </div>
-  
 
-  <div class="form-actions">
+  <div class="form-actions">
     <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
                 articles_path, :class => 'btn' %>
     <%= f.submit '投稿する', :class => 'btn btn-primary' %>
-
   </div>
-
+  
 <% end %>
 
 <script>

@@ -1,3 +1,4 @@
+#encoding: utf-8
 class CommentsController < ApplicationController
   # GET /comments
   # GET /comments.json
@@ -49,7 +50,7 @@ class CommentsController < ApplicationController
    @comment.user_id = current_user.id
     respond_to do |format|
       if @comment.save
-        format.html { redirect_to article_path(@article), notice: 'Comment was successfully created.' }
+        format.html { redirect_to article_path(@article), notice: 'コメントが投稿されました。' }
         format.json { render json: @comment, status: :created, location: @comment }
       else
         format.html { render action: "new" }
@@ -70,7 +71,7 @@ class CommentsController < ApplicationController
 
     respond_to do |format|
       if @comment.update_attributes(params[:comment])
-        format.html { redirect_to article_path(@article), notice: 'Comment was successfully updated.' }
+        format.html { redirect_to article_path(@article), notice: 'コメントが更新されました。' }
         format.json { head :no_content }
       else
        format.html { render action: "edit" }

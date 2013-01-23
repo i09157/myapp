@@ -22,10 +22,10 @@ class ArticlesController < ApplicationController
   # GET /articles/1
   # GET /articles/1.json
   def show
-    @article = Article.find(params[:id])
-   
+    @article = Article.find(params[:id])   
     @comment = Article.find(params[:id]).comments.build
-
+    @article.trigger_view_event
+ #   FNORD_METRIC.event(@article.attributes.merge(_type: :view_article))
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @article }
@@ -62,7 +62,6 @@ class ArticlesController < ApplicationController
     @article.user_id = current_user.id
     @article.user_image = current_user.image
     @article.tag_list = params[:article][:tag_list]
-    
     respond_to do |format|
       if @article.save
         format.html { redirect_to @article, notice: '記事が作成されました' }
@@ -79,8 +78,9 @@ class ArticlesController < ApplicationController
   # PUT /articles/1
   # PUT /articles/1.json
   def update
+    @article = Article.find(params[:id])
+    @article.trigger_update_event
 
-      @article = Article.find(params[:id])
       respond_to do |format|
         if @article.update_attributes(params[:article])
           format.html { redirect_to @article, notice: '記事が更新されました' }

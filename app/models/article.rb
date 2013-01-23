@@ -11,6 +11,12 @@ class Article < ActiveRecord::Base
   scope :title_or_content_matches, lambda{|q|
     where 'title like :q or content like :q', :q => "%#{q}%"
   }
+  def trigger_view_event
+    FNORD_METRIC.event(attributes.merge(_type: :view_article))    
+  end
+  def trigger_update_event
+    FNORD_METRIC.event(attributes.merge(_type: :update_article))    
+  end
   ActionView::Base.field_error_proc = Proc.new do |html_tag, instance|
     html = %(<div class="field_with_errors">#{html_tag}</div>).html_safe
     # add nokogiri gem to Gemfile

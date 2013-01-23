@@ -4,12 +4,19 @@ Myapp::Application.routes.draw do
   get "archives/index"
   get "welcome/index"
   get "home/index"
-
+  
 #  match "/arcives/:year/:mounth/:day", :to => "arcives#show"
   match 'archives', :to => 'archives#index', :as => :archives, :via => [:get]
   match '/archives(/:yy(/:mm(/:dd)))' => "archives#show"
-  resources :users
-
+  resources :follows
+  
+  resources :users do
+    member do
+    get :follow
+    get :unfollow
+    end
+  end
+  
   resources :articles do
    resources :comments
    collection do

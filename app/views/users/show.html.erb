@@ -4,15 +4,12 @@
       <%= image_tag(@user.image, {:size => '100x60'}) %>
       <h3><%= @user.name %></h3>
         
-      <% unless current_user == @user %>
-         <% if current_user.following?(@user) %>
-             <%= link_to  "フォロー解除",{:url => {:controller => :users,:action => :unfollow,:id => @user.id }} %>
-         <% else %>
-             <%= link_to @user ,{:url => {:controller => :users,:action => :follow,:id => @user.id }} %>
-         <% end %>
-       <% end %>
-<li>follower:<%= @user.followers_count %></li>
-      <li>follow:<%= @user.follow_count %></li>     
+      <% if current_user %>
+        <div id="follow_user">
+        <%= render :partial => "follow_user", :locals => {:user => @user} %>
+        </div>
+      <% end %>
+    
     </div>
     <div class="span9">
       <div class="tabbable"> <!-- Only required for left/right tabs -->
@@ -20,6 +17,7 @@
           <li class="active"><a href="#tab1" data-toggle="tab">記事</a></li>
           <li><a href="#tab2" data-toggle="tab">質問</a></li>
         </ul>
+
         <div class="tab-content">
           <div class="tab-pane active" id="tab1">
             <table class="table table-bordered  table-striped table-hover">

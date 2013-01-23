@@ -13,7 +13,7 @@ gem 'rack', '1.4.1'
 gem 'redcarpet', '1.17.2'
 gem 'albino'
 gem 'nokogiri'
-
+gem 'fnordmetric'
 gem "kaminari"  
 
 gem "acts_as_list"

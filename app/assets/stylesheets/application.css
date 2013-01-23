@@ -10,7 +10,7 @@
  *
  *= require_self
  *= require_tree .
- *= require jquery-ui-1.9.2.custom
+ *= require jquery.ui.all
  
 */
 
@@ -30,7 +30,10 @@ body{
   	padding-top: 25px;
 	margin:0 auto;
 	width:520px;
+}
 
+ul.breadcrumb{
+	margin-top: 15px;
 }
 .row {
   	padding-top: 15px;
@@ -54,3 +57,7 @@ body{
 .css2 { font-size: 1.2em; }
 .css3 { font-size: 1.4em; }
 .css4 { font-size: 1.6em; }
+
+.icon{
+	margin-right: 5px;
+}
