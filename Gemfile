@@ -15,14 +15,13 @@ gem 'albino'
 gem 'nokogiri'
 gem 'fnordmetric'
 gem "kaminari"  
-
+gem 'flowplayer', :git => "git://github.com/scottdavis/flowplayer-gem.git"
 gem "acts_as_list"
 gem 'acts-as-taggable-on'
-
+gem 'activeadmin'
 gem 'twitter-bootstrap-rails'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
-
 gem "omniauth"
 gem 'omniauth-github'
 gem "acts_as_follower"
@@ -30,3 +29,6 @@ gem 'draper'
 
 gem 'foreigner'
 
+group :development do
+  gem "rails-erd"
+end

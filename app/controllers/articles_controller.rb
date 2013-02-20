@@ -3,6 +3,7 @@ class ArticlesController < ApplicationController
   # GET /articles
   # GET /articles.json
   before_filter :authenticate, :only => [:delete,:new,:show]
+    @categories = Category.all
 
   def index
  #   @articles = Article.order('created_at desc')

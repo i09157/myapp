@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-  attr_accessible :name, :provider, :uid
+  attr_accessible :name, :provider, :uid,:admin
   acts_as_followable
   acts_as_follower 
   has_many :articles

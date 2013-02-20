@@ -4,14 +4,16 @@
     </ul>
 <h1>マイページ</h1>
 <br />
-<li><%= link_to 'Archives', archives_path %></li> 
+<%#= link_to 'Archives', archives_path %> 
 <div class ="container">
 	  <div class="row">
       <div class="span9">
         <div class="tabbable"> <!-- Only required for left/right tabs -->
           <ul class="nav nav-tabs">
-          <li class="active"><a href="#tab1" data-toggle="tab">投稿した記事</a></li>
-          <li><a href="#tab2" data-toggle="tab">お気に入り</a></li>
+          <li class="active"><a href="#tab1" data-toggle="tab">投稿した質問</a></li>
+          <li class="active"><a href="#tab2" data-toggle="tab">回答した質問</a></li>
+          <li><a href="#tab3" data-toggle="tab">ストックした質問</a></li>
+          <li><a href="#tab4" data-toggle="tab">フォローユーザアクティビティ</a></li>
           </ul>
           <div class="tab-content">
             <div class="tab-pane active" id="tab1">
@@ -30,20 +32,24 @@
             </div>
             <div class="tab-pane" id="tab2">
             </div>
+            <div class="tab-pane" id="tab3">
+            </div>
+            <div class="tab-pane" id="tab4">
+              <li><a href="#">i09000</a>さんが質問を投稿しました。2013/01/28</li>
+              <li><a href="#">i09000</a>さんが回答を投稿しました。2013/01/28</li>
+            </div>
           </div>
         </div>
       </div>
      	<div class="span3">
           <div class="well sidebar-nav">
-            <%= image_tag current_user.image %>
-            <li>follower:<%= current_user.followers_count %></li>
-            <li>follow:<%= current_user.follow_count %></li>     
+            <%= image_tag(current_user.image, {:size => '120x240'}) %>   
             <h3><%= current_user.name %></h3>
+                        
             <ul class="nav nav-list">
               <li class="nav-header">Sidebar</li>
-              <li><%= link_to "Link1", "/path1"  %></li>
-              <li><%= link_to "Link2", "/path2"  %></li>
-              <li><%= link_to "Link3", "/path3"  %></li>
+              <li>フォロー数<%= link_to current_user.followers_count , "/path1"%></li>
+              <li>フォロワー数<%= link_to current_user.follow_count, "/path3"  %></li>
             </ul>
           </div><!--/.well -->
       </div><!--/span-->

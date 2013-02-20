@@ -1,6 +1,6 @@
 #encoding: utf-8
 class Article < ActiveRecord::Base
-  attr_accessible :content, :title, :tag_list
+  attr_accessible :content, :title, :tag_list, :category_id,:category_name
   acts_as_taggable
   has_many :comments, :dependent => :destroy
   validates :title, :presence => true
@@ -8,6 +8,7 @@ class Article < ActiveRecord::Base
   validates :content, :presence => true,
                       :length => { :minimum => 5 }
   belongs_to :user
+  belongs_to :category
   scope :title_or_content_matches, lambda{|q|
     where 'title like :q or content like :q', :q => "%#{q}%"
   }

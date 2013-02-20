@@ -20,26 +20,40 @@
     </div>
     <% end %>
     <h1><%= @article.title %></h1>
-    <p>投稿日: <%= simple_time(@article.created_at) %></p>
+    <p>投稿日: <%= simple_time(@article.updated_at) %></p>
     <%= image_tag 'icon-comment.png'%>
     (<%= @article.comments.size %>)
   </div>
 <% end %>
 
-
-  <hr/>
   <p><%= markdown @article.content %></p>
-  <br /><hr />
-  <h3>この記事の情報は正しいですか・使えますか？</h3>
-  <button>YES</button>
+  <br />
+  <a id="video" style='display:block;width:512px;height:312px;' ></a>
+  <%= flowplayer_for :video, '/flowplayer.swf' do |player|
+  player.playlist [{:url => "/media/test.png"},
+                   {:url => "/media/test.mp4", :autoplay => false, :autoBuffering => true}]
+  player.onload do
+    'this.unmute();'
+  end
+ end %>
   <hr />
-  <legend><h3>コメント</h3></legend>
+  <legend>
+    <h3>回答</h3>
+    <div class="btn-group">
+      <button class="btn active" >評価順</button>
+      <button class="btn">新着順</button>
+    </div>
+
+  </legend>
+
+
     <% if @article.comments.any? %>
       <ul>
       <% @article.comments.each do |comment| %>
         <%= image_tag(comment.user_image, {:size => '30x20'}) %>
 	      <%= link_to comment.user_name , user_path(comment.user_id) %>
         <%= simple_time(@article.created_at) %>
+        <button class="btn-success">Good</button>
 	      <% if comment.user_id == current_user.id %>
 	      <%= link_to 'Delete',[comment.article, comment],:confirm => 'Are you sure?',
 	                                 									    :method => :delete,
@@ -51,12 +65,16 @@
       <% end %>
         </ul>
 	  <% else %>
-	    <li>まだコメントがありません。</li>
+	    <li>まだ回答がありません。</li>
 	  <% end %>
-    <legend>Add a comment</legend>
+    <legend><h3>この質問に回答する</h3></legend>
     <%= render 'comments/form' %>
 
 <% content_for :sidebar do %>
+  <button class="btn-success">この投稿をストックする</button>
+  <br />
+  <hr />
+  <h4>タグ</h4>
    <ul>
       <% @article.tags.each do |tag| %>
       <li><%= link_to tag.name, { :action => :tag, :name => tag.name }, :class => "label label-info" %></li>
@@ -67,13 +85,13 @@
     <h3>投稿者：<%= link_to @article.user_name, user_path(@article.user_id) %></h3>
     <ul class="nav nav-list">
       <li class="nav-header">Sidebar</li>
-      <li><%= link_to "Link1", "/path1"  %></li>
-      <li><%= link_to "Link2", "/path2"  %></li>
-          <li><%= link_to "Link3", "/path3"  %></li>
+      <li>投稿数 <%= link_to "4", "/path1"  %></li>
+      <li>ストックされた数<%= link_to "0", "/path2"  %></li>
+      <li>回答評価された数<%= link_to "0", "/path3"  %></li>
     </ul>
   </div>
-  <h4>関連する記事</h4>
   <% @article.find_related_tags.each do |article| %>
     <li><%= link_to article.title, article_path(article) %></li>
   <% end %>
+
 <% end %>

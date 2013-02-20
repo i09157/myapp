@@ -3,8 +3,10 @@ require "fnordmetric"
 
 FnordMetric.namespace :myapp do
   hide_active_users
-  toplist_gauge :popular_articles, title: "閲覧数の多い記事"
-  toplist_gauge :update_articles,title: "新着・更新記事"
+  toplist_gauge :popular_articles, title: "閲覧数の多い質問"
+  toplist_gauge :update_articles,title: "新着・更新質問"
+  toplist_gauge :popular_users, :title => "人気ユーザ",
+    :resolution => 2.minutes
   toplist_gauge :popular_keywords,
     :title => "人気キーワード",
     :resolution => 2.minutes
